@@ -1,10 +1,18 @@
 package com.app.project.logconsumer;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Date;
 
 @Document(collection = "logs")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class LogEntity {
 
     @Id
@@ -21,16 +29,5 @@ public class LogEntity {
         this.message = message;
     }
 
-    // Getter ve setter metotlarını ekleyebilirsiniz
 
-    @Override
-    public String toString() {
-        return "LogEntity{" +
-                "id='" + id + '\'' +
-                ", timestamp=" + timestamp +
-                ", level='" + level + '\'' +
-                ", location='" + location + '\'' +
-                ", message='" + message + '\'' +
-                '}';
-    }
 }
