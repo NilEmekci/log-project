@@ -1,4 +1,7 @@
 package com.app.project.logcreator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -13,6 +16,7 @@ import java.util.concurrent.TimeUnit;
 
 public class LogCreatorMainApplication {
 
+    private static final Logger logger = LoggerFactory.getLogger(LogCreatorMainApplication.class);
     private static final String[] CITIES = {"Istanbul", "Tokyo", "Moskow", "Beijing", "London"};
     private static final String[] LOG_LEVELS = {"INFO", "WARN", "FATAL", "DEBUG", "ERROR"};
     private static final Random RANDOM = new Random();
@@ -27,7 +31,7 @@ public class LogCreatorMainApplication {
 
         try {
             logFile.createNewFile();
-            System.out.println("Log file created: " + logFile.getAbsolutePath());
+            logger.info("Log file created: {} ", logFile.getAbsolutePath());
 
             while (true) {
                 writeLog(logFile);
@@ -49,7 +53,10 @@ public class LogCreatorMainApplication {
             String logLine = timestamp + " " + logLevel + " " + city + " " + logDetail;
             writer.write(logLine);
             writer.newLine();
-            System.out.println("Log written: " + logLine);
+            logger.info("Log written: {} ", logLine);
+
+
+
         }
     }
 
