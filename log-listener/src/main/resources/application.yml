@@ -1,0 +1,13 @@
+server:
+  port: 8080
+  version: 'v1'
+
+spring:
+  application:
+    name: log-listener
+  kafka:
+    bootstrap-servers: localhost:9092
+    client-id: log-project-client
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
