@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -83,6 +84,8 @@ public class LogConsumerService {
                     dto.setCountryData(entry.getValue().entrySet().stream()
                             .collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().toString())));
                     return dto;
-                }).collect(Collectors.toList());
+                })
+                .sorted(Comparator.comparing(LogResponseDto::getTime))
+                .collect(Collectors.toList());
     }
 }
