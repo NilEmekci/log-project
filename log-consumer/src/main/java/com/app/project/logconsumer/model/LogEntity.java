@@ -1,4 +1,4 @@
-package com.app.project.logconsumer;
+package com.app.project.logconsumer.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

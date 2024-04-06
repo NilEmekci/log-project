@@ -6,7 +6,7 @@ spring:
   application:
     name: log-listener
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: kafka:9092
     client-id: log-project-client
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
@@ -14,4 +14,4 @@ spring:
 
 log:
   file:
-    path: C:\Users\Asus\IdeaProjects\log-project\app\logs\log.txt
+    path: /app/logs/log.txt

@@ -1,4 +1,4 @@
-package com.app.project.logconsumer;
+package com.app.project.logconsumer.controller.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

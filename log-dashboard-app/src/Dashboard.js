@@ -7,7 +7,6 @@ const colors = [
     '#FFBFBF', // Pembe
     '#413ea0', // Koyu Mavi
     '#e83f6f', // Pembe
-
   ];
 const Dashboard = () => {
   const [data, setData] = useState([]);

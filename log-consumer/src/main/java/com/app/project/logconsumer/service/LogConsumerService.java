@@ -1,7 +1,7 @@
 package com.app.project.logconsumer.service;
 
-import com.app.project.logconsumer.LogEntity;
-import com.app.project.logconsumer.LogResponseDto;
+import com.app.project.logconsumer.model.LogEntity;
+import com.app.project.logconsumer.controller.dto.LogResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;

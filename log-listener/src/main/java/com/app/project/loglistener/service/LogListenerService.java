@@ -4,6 +4,7 @@ import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,8 @@ import java.util.concurrent.TimeUnit;
 public class LogListenerService {
     private final KafkaTemplate<String, String> kafkaTemplate;
     private final Set<String> sentLogs;
-
+    @Value("${log.file.path}")
+    private String logFilePath;
 
     @PostConstruct
     public void startLogListener() {
@@ -30,7 +32,6 @@ public class LogListenerService {
     }
 
     private void readLogFileAndSendToKafka() {
-        String logFilePath = "C:\\Users\\Asus\\IdeaProjects\\log-project\\logs\\log.txt";
         try (BufferedReader br = new BufferedReader(new FileReader(logFilePath))) {
             String line;
             while ((line = br.readLine()) != null) {

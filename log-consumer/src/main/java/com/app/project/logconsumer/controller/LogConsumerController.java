@@ -1,7 +1,7 @@
 package com.app.project.logconsumer.controller;
 
-import com.app.project.logconsumer.DateUtils;
-import com.app.project.logconsumer.LogResponseDto;
+import com.app.project.logconsumer.utility.DateUtils;
+import com.app.project.logconsumer.controller.dto.LogResponseDto;
 import com.app.project.logconsumer.service.LogConsumerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -28,8 +28,4 @@ public class LogConsumerController {
         }
 
     }
-
-
-
-
 }

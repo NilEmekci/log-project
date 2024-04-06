@@ -1,4 +1,4 @@
-package com.app.project.logconsumer;
+package com.app.project.logconsumer.utility;
 
 
 import java.text.ParseException;
