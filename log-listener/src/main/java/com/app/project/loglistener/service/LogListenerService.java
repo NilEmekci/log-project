@@ -21,9 +21,11 @@ import java.util.concurrent.TimeUnit;
 @RequiredArgsConstructor
 public class LogListenerService {
     private final KafkaTemplate<String, String> kafkaTemplate;
-    private final Set<String> sentLogs;
+    public Set<String> sentLogs;
     @Value("${log.file.path}")
-    private String logFilePath;
+    public String logFilePath;
+
+
 
     @PostConstruct
     public void startLogListener() {
@@ -31,7 +33,7 @@ public class LogListenerService {
         scheduler.scheduleAtFixedRate(this::readLogFileAndSendToKafka, 0, 1, TimeUnit.SECONDS);
     }
 
-    private void readLogFileAndSendToKafka() {
+    public void readLogFileAndSendToKafka() {
         try (BufferedReader br = new BufferedReader(new FileReader(logFilePath))) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -46,3 +48,5 @@ public class LogListenerService {
         }
     }
 }
+
+

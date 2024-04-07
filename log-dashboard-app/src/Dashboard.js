@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import Button from '@mui/material/Button';
+import {toast} from "react-toastify";
+
 const colors = [
-    '#7B66FF', // Mor
+    '#756AB6', // Mor
     '#5FBDFF', // Mavi
-    '#A8DF8E', // Yeşil
+    '#1FAB89', // Koyu Yeşil
     '#FFBFBF', // Pembe
-    '#413ea0', // Koyu Mavi
-    '#e83f6f', // Pembe
-  ];
+    '#D24545', // Kırmızı
+];
+
 const Dashboard = () => {
   const [data, setData] = useState([]);
   const [countries, setCountries] = useState([]);
 
-  useEffect(() => {
-
+  const fetchData = () => {
     const now = new Date().toISOString();
-
     fetch(`http://localhost:8081/log-consumer/getByDay/${now}`)
       .then(response => response.json())
       .then(jsonData => {
@@ -31,11 +32,34 @@ const Dashboard = () => {
         setData(transformedData);
         setCountries([...allCountries]);
       })
-      .catch(error => console.error('Error fetching data: ', error));
+            .catch(error => {
+        toast.error("Log-Consumer service unavailable!", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored", 
+        });
+      });
+    
+  };
+
+  useEffect(() => {
+    fetchData(); 
+    const interval = setInterval(() => {
+      fetchData(); 
+    }, 5000); 
+    return () => clearInterval(interval); 
   }, []);
 
   return (
     <div style={{ width: '100%', height: '400px' }}>
+      <Button variant="contained" color="primary" onClick={fetchData} style={{ marginBottom: '10px' }}>
+        Refresh
+      </Button>
       <ResponsiveContainer>
         <LineChart
           data={data}
