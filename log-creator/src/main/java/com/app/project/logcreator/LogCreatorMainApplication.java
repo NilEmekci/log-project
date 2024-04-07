@@ -2,6 +2,7 @@ package com.app.project.logcreator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -20,22 +21,19 @@ public class LogCreatorMainApplication {
     private static final String[] CITIES = {"Istanbul", "Tokyo", "Moskow", "Beijing", "London"};
     private static final String[] LOG_LEVELS = {"INFO", "WARN", "FATAL", "DEBUG", "ERROR"};
     private static final Random RANDOM = new Random();
-    private static String logDirectory = System.getProperty("user.dir")+"/app/logs/";
+    private static String logDirectory = System.getProperty("user.dir") + "/app/logs/";
 
     public static void main(String[] args) throws IOException {
         Files.createDirectories(Paths.get(logDirectory));
         Path logFilePath = Paths.get(logDirectory + "log.txt");
-        Files.deleteIfExists(logFilePath);
         File logFile = logFilePath.toFile();
 
-        if (logFile.exists()) {
-            logFile.delete();
-        }
 
         try {
-            logFile.createNewFile();
-            logger.info("Log file created: {} ", logFile.getAbsolutePath());
-
+            if (!logFile.exists()) {
+                logFile.createNewFile();
+                logger.info("Log file created: {} ", logFile.getAbsolutePath());
+            }
             while (true) {
                 writeLog(logFile);
 

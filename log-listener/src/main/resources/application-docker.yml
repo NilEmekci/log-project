@@ -15,3 +15,6 @@ spring:
 log:
   file:
     path: /app/logs/log.txt
+    last-read-position:
+      file:
+        path: /app/logs/log-remember.txt

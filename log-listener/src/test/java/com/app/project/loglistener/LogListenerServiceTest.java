@@ -2,49 +2,61 @@ package com.app.project.loglistener;
 
 import com.app.project.loglistener.service.LogListenerService;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import org.mockito.InjectMocks;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.HashSet;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
 class LogListenerServiceTest {
 
-    @MockBean
-    private KafkaTemplate<String, String> kafkaTemplate;
+    private LogListenerService service;
 
-    @Autowired
-    @InjectMocks
-    private LogListenerService logListenerService;
+    private KafkaTemplate<String, String> kafkaTemplate;
 
     @TempDir
     Path tempDir;
 
+    @BeforeEach
+    void setUp() throws NoSuchFieldException, IllegalAccessException {
+        kafkaTemplate = mock(KafkaTemplate.class);
+
+        service = new LogListenerService(kafkaTemplate);
+
+        setField(service, "logFilePath", tempDir.resolve("log.txt").toString());
+        setField(service, "lastReadPositionFilePath", tempDir.resolve("log-remember.txt").toString());
+    }
+
     @Test
-    void testReadLogFileAndSendToKafka() throws Exception {
+    void readLogFileAndSendToKafkaWithContent() throws IOException {
+        Files.write(tempDir.resolve("log.txt"), "Test log entry\nAnother log entry".getBytes());
+        Files.write(tempDir.resolve("log-remember.txt"), "0".getBytes());
 
-        String logData = "2024-04-07 16:51:29.593 FATAL Istanbul tkycljykclanmz";
-        File tempLogFile = tempDir.resolve("log.txt").toFile();
+        service.readLogFileAndSendToKafka();
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(tempLogFile))) {
-            writer.write(logData);
-        }
+        verify(kafkaTemplate, times(2)).send(any(ProducerRecord.class));
+    }
 
-        logListenerService.logFilePath = tempLogFile.getAbsolutePath();
+    @Test
+    void readLogFileAndSendToKafkaWithEmptyFile() throws IOException {
+        Files.createFile(tempDir.resolve("log.txt"));
+        Files.write(tempDir.resolve("log-remember.txt"), "0".getBytes());
 
-        logListenerService.sentLogs = new HashSet<>();
+        service.readLogFileAndSendToKafka();
 
-        logListenerService.readLogFileAndSendToKafka();
+        verify(kafkaTemplate, never()).send(any(ProducerRecord.class));
+    }
 
-        verify(kafkaTemplate, times(1)).send(any(ProducerRecord.class));
+
+    private void setField(Object targetObject, String fieldName, Object value) throws NoSuchFieldException, IllegalAccessException {
+        Field field = targetObject.getClass().getDeclaredField(fieldName);
+        field.setAccessible(true);
+        field.set(targetObject, value);
     }
 }
