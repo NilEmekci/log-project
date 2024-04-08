@@ -21,7 +21,7 @@ public class LogCreatorMainApplication {
     private static final String[] CITIES = {"Istanbul", "Tokyo", "Moskow", "Beijing", "London"};
     private static final String[] LOG_LEVELS = {"INFO", "WARN", "FATAL", "DEBUG", "ERROR"};
     private static final Random RANDOM = new Random();
-    private static String logDirectory = System.getProperty("user.dir") + "/app/logs/";
+    private static String logDirectory = "/var/log/"+"/app/logs/";
 
     public static void main(String[] args) throws IOException {
         Files.createDirectories(Paths.get(logDirectory));

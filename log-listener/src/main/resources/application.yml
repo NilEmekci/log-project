@@ -1,20 +1,20 @@
 server:
-  port: 8080
+  port: ${SERVER_PORT:8080}
   version: 'v1'
 
 spring:
   application:
     name: log-listener
   kafka:
-    bootstrap-servers: localhost:9092
-    client-id: log-project-client
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    client-id: ${KAFKA_CLIENT_ID:log-project-client}
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
 log:
   file:
-    path: C:\Users\Asus\IdeaProjects\log-project\app\logs\log.txt
+    path: ${LOG_FILE_PATH:var/log/app/logs/log.txt}
     last-read-position:
       file:
-        path: C:\Users\Asus\IdeaProjects\log-project\app\logs\log-remember.txt
+        path: ${LOG_LAST_READ_POSITION_PATH:var/log/app/logs/log-remember.txt}

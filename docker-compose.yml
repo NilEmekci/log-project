@@ -28,7 +28,7 @@ services:
     ports:
       - "8082:8082"
     volumes:
-      - C:\Users\Asus\IdeaProjects\log-project\logs:/app/logs
+      - C:\Users\Asus\IdeaProjects\log-project\app\logs:/app/logs
 
   log-creator:
     build:
@@ -43,7 +43,7 @@ services:
     ports:
       - "8083:8083"
     volumes:
-      - C:\Users\Asus\IdeaProjects\log-project\logs:/app/logs
+      - C:\Users\Asus\IdeaProjects\log-project\app\logs:/app/logs
 
 
   kafka:

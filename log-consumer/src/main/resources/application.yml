@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: ${SERVER_PORT:8081}
   version: 'v1'
 
 spring:
@@ -7,12 +7,12 @@ spring:
     name: log-consumer
   data:
     mongodb:
-      host: localhost
-      port: 27017
-      database: logger-db
+      host: ${MONGODB_HOST:localhost}
+      port: ${MONGODB_PORT:27017}
+      database: ${MONGODB_DATABASE:logger-db}
   kafka:
-    bootstrap-servers: localhost:9092
-    client-id: log-project-client
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    client-id: ${KAFKA_CLIENT_ID:log-project-client}
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
