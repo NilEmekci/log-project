@@ -7,11 +7,13 @@ This repository houses the Log Project, divided into four modules.
 - log-consumer: Consumer, which is a Spring project, reads the data coming to "log-topic" using Kafka and segments the data and saves it to MongoDB. It also provides data to the "log-dashboard-app" via the created REST API.
 - log-dashboard-app: Dashboard app, which is a React.js project, allows users to view the live log record graph.
 
+
+![UI-IMAGE!](ui-image.png)
+
 Start the setup via cloning the repository in local machine:
 ```shell
 git clone https://github.com/NilEmekci/log-project.git
 ```
-
 
 ## Run with docker-compose
 
