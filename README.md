@@ -1,4 +1,4 @@
-#LogProject
+# LogProject
 
 This repository houses the Log Project, divided into four modules.
 
