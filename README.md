@@ -38,7 +38,7 @@ Before deploying any part of the Log Project, ensure you have the following requ
 
 - **Log File Path Update**
    - In docker-compose.yml of project, the following log file paths should be updated according to your computer. For this, the following steps must be performed. If you cloned the project, lines 31 and 46 in docker-compose.yml need to be updated:
-       - "- C:\Users\Asus\IdeaProjects\log-project\logs:/app/logs" While the right side of ":" remains constant, the left side must be updated with the absolute path where your project's log file is located.
+       - "- C:\Users\Asus\IdeaProjects\log-project\app\logs:/app/logs" While the right side of ":" remains constant, the left side must be updated with the absolute path where your project's log file is located.
 
 
 
